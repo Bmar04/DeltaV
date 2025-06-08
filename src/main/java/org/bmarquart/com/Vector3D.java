@@ -20,6 +20,18 @@ public class Vector3D {
         z = zIn;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public double getY() {
+        return y;
+    }
+
     public Vector3D add(Vector3D vector2){
         Vector3D newVector = new Vector3D();
 
@@ -67,6 +79,17 @@ public class Vector3D {
 
         newVector = new Vector3D(cx,cy,cz);
         return newVector;
+    }
+
+    public Vector3D vectorDivideScalar(double scalar){
+        Vector3D newVector;
+
+        double x = this.x / scalar;
+        double y = this.y / scalar;
+        double z = this.z / scalar;
+
+        newVector = new Vector3D(x,y,z);
+        return  newVector;
     }
 
     public Vector3D unitVector(){

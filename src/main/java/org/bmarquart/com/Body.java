@@ -36,11 +36,16 @@ public class Body {
             Vector3D unitR = r.unitVector();
             Vector3D gravity = unitR.scalarMultiply(force);
 
-            acceleration = acceleration.add(gravity);
+            acceleration = acceleration.add(gravity.vectorDivideScalar(this.mass));
         }
     }
 
-    public void updateBody(){
+    public void updateBody(double time){
+        velocity = acceleration.vectorDivideScalar(time);
+        position = velocity.vectorDivideScalar(time);
+    }
 
+    public double getKineticEnergy(){
+        return 0.5 * mass * Math.pow(velocity.magnitude(),2);
     }
 }
