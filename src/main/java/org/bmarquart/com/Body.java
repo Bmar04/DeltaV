@@ -29,20 +29,21 @@ public class Body {
         acceleration = new Vector3D();
 
         for (Body body2 : bodies) {
-
-            Vector3D r = this.position.subtract(body2.position);
+            if (this == body2) continue;
+            Vector3D r = body2.position.subtract(this.position); // Direction from this body to other body
             double mag = r.magnitude();
-            double force = G * ((this.mass * body2.mass) / Math.pow(mag, 2));
+            if (mag == 0) continue;
+            double force = G * body2.mass / Math.pow(mag, 2); // Force per unit mass
             Vector3D unitR = r.unitVector();
-            Vector3D gravity = unitR.scalarMultiply(force);
-
-            acceleration = acceleration.add(gravity.vectorDivideScalar(this.mass));
+            Vector3D gravity = unitR.scalarMultiply(force); // Acceleration due to gravity
+            acceleration = acceleration.add(gravity);
         }
     }
 
-    public void updateBody(double time){
-        velocity = acceleration.vectorDivideScalar(time);
-        position = velocity.vectorDivideScalar(time);
+    public void updateBody(double deltaTime){
+        // Correct physics integration using Euler method
+        velocity = velocity.add(acceleration.scalarMultiply(deltaTime));
+        position = position.add(velocity.scalarMultiply(deltaTime));
     }
 
     public double getKineticEnergy(){

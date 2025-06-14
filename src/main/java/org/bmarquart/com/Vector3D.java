@@ -103,4 +103,8 @@ public class Vector3D {
         unitVector = new Vector3D(x,y,z);
         return unitVector;
     }
+
+    public String toString(){
+        return "<" + this.x + " " + this.y + " " + this.z + ">";
+    }
 }
